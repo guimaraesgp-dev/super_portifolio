@@ -15,15 +15,13 @@ class ProfileViewSet(viewsets.ModelViewSet):
 
     def retrieve(self, request, *args, **kwargs):
         if request.method == "GET":
-            # busque o id do perfil
-            # crie uma variável para guardar esse perfil
             id = kwargs.get("pk")
             profile = Profile.objects.get(pk=id)
 
             return render(
                 request,
                 "profile_detail.html",
-                {"profile": profile, "projects": profile.projects.all()},
+                {"profile": profile},
             )
         return super().retrieve(request, *args, **kwargs)
 
