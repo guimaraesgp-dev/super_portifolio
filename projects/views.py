@@ -1,13 +1,33 @@
+from django.shortcuts import render
 from rest_framework import viewsets
-from .models import Profile, Project
+from .models import Profile, Project, permissions
 from .serializers import ProfileSerializer, ProjectSerializer
 
 
-class ProfilesViewSet(viewsets.ModelViewSet):
+class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
 
+    def get_permissions(self):
+        if self.request.method == "GET":
+            return [permissions.AllowAny()]
+        return [permissions.IsAuthenticated()]
 
-class ProjectsViewSet(viewsets.ModelViewSet):
+    def retrieve(self, request, *args, **kwargs):
+        if request.method == "GET":
+            # busque o id do perfil
+            # crie uma variável para guardar esse perfil
+            id = kwargs.get("pk")
+            profile = Profile.objects.get(pk=id)
+
+            return render(
+                request,
+                "profile_detail.html",
+                {"profile": profile, "projects": profile.projects.all()},
+            )
+        return super().retrieve(request, *args, **kwargs)
+
+
+class ProjectViewSet(viewsets.ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer

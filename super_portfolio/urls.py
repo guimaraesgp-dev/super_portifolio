@@ -22,11 +22,11 @@ from rest_framework_simplejwt.views import (
     TokenVerifyView,
 )
 from rest_framework import routers
-from projects.views import ProfilesViewSet, ProjectsViewSet
+from projects.views import ProfileViewSet, ProjectViewSet
 
 router = routers.DefaultRouter()
-router.register(r"profiles", ProfilesViewSet)
-router.register(r"projects", ProjectsViewSet)
+router.register(r"profiles", ProfileViewSet)
+router.register(r"projects", ProjectViewSet)
 
 
 urlpatterns = [
