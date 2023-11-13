@@ -1,18 +1,48 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="pt-BR">
-
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
-  <title>Detalhes dos Perfis</title>
-</head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ profile.name }} Profile</title>
 </head>
 <body>
-    <p>Nome: {{ profile.name }}</p>
-    <p>GitHub: {{ profile.github }}</p>
-    <p>LinkedIn: {{ profile.linkedin }}</p>
-    <p>Biografia: {{ profile.bio }}</p>
+    <h1>{{ profile.name }} Profile</h1>
+    <p>GitHub:<a href="{{ profile.github }}">{{ profile.github }}</a></p>
+    <p>LinkedIn: <a href="{{ profile.linkedin }}">{{ profile.linkedin }}</a></p>
+    <p>Bio: {{ profile.bio }}</p>
 </body>
+</html>
+
+<body>
+  <container>
+    <div>
+      <h1>Certificates</h1>
+      {% for certificate in certificates %}
+      <ul>
+        <li>{{ certificate.name }} - {{ certificate.certifying_institution }} </li>
+      </ul>
+      {% endfor %}
+    </div>
+
+    <div>
+      {% for project in projects %}
+      <div>
+        <h1>{{ project.name }}</h1>
+        <p>{{ project.description }}</p>
+        <p>{{ project.keyword }}</p>
+        <p>{{ project.key_skill }}</p>
+        <a href="{{ project.link }}">Repositório</a>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div>
+      <h1>About me</h1>
+      <p>{{ profile.bio }}</p>
+    </div>
+
+  </container>
+</body>
+
 </html>
